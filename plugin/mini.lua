@@ -19,6 +19,7 @@ vim.pack.add({
 	"https://github.com/nvim-mini/mini.map",
 	"https://github.com/nvim-mini/mini.statusline",
 	"https://github.com/nvim-mini/mini.tabline",
+	"https://github.com/nvim-mini/mini.hipatterns",
 })
 local miniclue = require("mini.clue")
 
@@ -34,7 +35,12 @@ require("mini.completion").setup()
 require("mini.move").setup()
 require("mini.comment").setup()
 require("mini.bracketed").setup()
-miniclue.setup({
+require("mini.jump").setup()
+require("mini.jump2d").setup()
+require("mini.files").setup()
+require("mini.statusline").setup()
+require("mini.tabline").setup()
+require("mini.clue").setup({
 	triggers = {
 		{ mode = { "n", "x" }, keys = "<Leader>" },
 		{ mode = { "n", "x" }, keys = "g" },
@@ -73,8 +79,15 @@ miniclue.setup({
 		},
 	},
 })
-require("mini.jump").setup()
-require("mini.jump2d").setup()
-require("mini.files").setup()
-require("mini.statusline").setup()
-require("mini.tabline").setup()
+require("mini.hipatterns").setup({
+	highlighters = {
+		-- Highlight standalone 'FIXME', 'HACK', 'TODO', 'NOTE'
+		fixme = { pattern = "%f[%w]()FIXME()%f[%W]", group = "MiniHipatternsFixme" },
+		hack = { pattern = "%f[%w]()HACK()%f[%W]", group = "MiniHipatternsHack" },
+		todo = { pattern = "%f[%w]()TODO()%f[%W]", group = "MiniHipatternsTodo" },
+		note = { pattern = "%f[%w]()NOTE()%f[%W]", group = "MiniHipatternsNote" },
+
+		-- Highlight hex color strings (`#rrggbb`)
+		hex_color = require("mini.hipatterns").gen_highlighter.hex_color(),
+	},
+})
