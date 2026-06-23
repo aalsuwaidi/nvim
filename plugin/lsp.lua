@@ -12,6 +12,7 @@ vim.lsp.enable({
 	"cssls",
 	"ts_ls",
 	"svelte",
+	"markdown_oxide",
 })
 
 vim.api.nvim_create_autocmd("LspAttach", {
